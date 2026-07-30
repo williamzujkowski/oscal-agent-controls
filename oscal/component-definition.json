@@ -1,0 +1,60 @@
+{
+  "component-definition": {
+    "uuid": "11111111-1111-4111-8111-111111111111",
+    "metadata": {
+      "title": "Synthetic Agent Runtime Controls",
+      "last-modified": "2026-07-30T00:00:00Z",
+      "version": "0.1.0",
+      "oscal-version": "1.1.2"
+    },
+    "components": [
+      {
+        "uuid": "22222222-2222-4222-8222-222222222222",
+        "type": "software",
+        "title": "example-agent-runtime",
+        "description": "Synthetic reference monitor for invented agent tool calls.",
+        "control-implementations": [
+          {
+            "uuid": "33333333-3333-4333-8333-333333333333",
+            "source": "https://csrc.nist.gov/projects/risk-management/sp800-53-controls",
+            "description": "Synthetic implementation statements for agent control gates.",
+            "implemented-requirements": [
+              {
+                "uuid": "44444444-4444-4444-8444-444444444444",
+                "control-id": "ac-6",
+                "description": "Least privilege is enforced with a committed tool allowlist and deny-by-default decisions.",
+                "props": [
+                  {"name": "agent-control", "ns": "https://example.local/ns/agent-controls", "value": "tool-allowlist"},
+                  {"name": "default-decision", "ns": "https://example.local/ns/agent-controls", "value": "deny"},
+                  {"name": "policy-file", "ns": "https://example.local/ns/agent-controls", "value": "agent-policy.yaml"},
+                  {"name": "pipeline-assertion", "ns": "https://example.local/ns/agent-controls", "value": "all_tool_calls_subset_of_allowed_tools"}
+                ],
+                "links": [
+                  {"rel": "policy", "href": "../policy/agent-policy.yaml"}
+                ]
+              },
+              {
+                "uuid": "55555555-5555-4555-8555-555555555555",
+                "control-id": "ac-4",
+                "description": "Information flow enforcement blocks synthetic secret egress to destinations not approved for secrets.",
+                "props": [
+                  {"name": "agent-control", "ns": "https://example.local/ns/agent-controls", "value": "secret-egress"},
+                  {"name": "pipeline-assertion", "ns": "https://example.local/ns/agent-controls", "value": "no_secret_to_unapproved_destination"}
+                ]
+              },
+              {
+                "uuid": "66666666-6666-4666-8666-666666666666",
+                "control-id": "au-12",
+                "description": "Audit generation records every allow and deny decision with required fields.",
+                "props": [
+                  {"name": "agent-control", "ns": "https://example.local/ns/agent-controls", "value": "audit"},
+                  {"name": "pipeline-assertion", "ns": "https://example.local/ns/agent-controls", "value": "every_decision_has_audit_record"}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

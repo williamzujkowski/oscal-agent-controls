@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+.tools/
+verify/Gate-py/
+verify/bin/
+*.dtr

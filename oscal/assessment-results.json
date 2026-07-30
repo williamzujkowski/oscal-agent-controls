@@ -1,0 +1,327 @@
+{
+  "assessment-results": {
+    "uuid": "99999999-9999-4999-8999-999999999999",
+    "metadata": {
+      "title": "Synthetic Agent Runtime Assessment Results",
+      "last-modified": "2026-07-30T00:00:00Z",
+      "version": "0.1.0",
+      "oscal-version": "1.1.2"
+    },
+    "import-ap": {
+      "href": "component-definition.json"
+    },
+    "results": [
+      {
+        "uuid": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "title": "Reference monitor pipeline proof",
+        "description": "Deterministic pipeline evidence for synthetic agent controls.",
+        "start": "2026-07-30T00:00:00Z",
+        "end": "2026-07-30T00:00:06Z",
+        "findings": [
+          {
+            "uuid": "70000000-0000-4000-8000-000000000001",
+            "title": "component-definition declares required controls",
+            "description": "component-definition contains ac-6, ac-4, and au-12",
+            "target": {
+              "target-id": "ac-6",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000002",
+            "title": "policy source loads",
+            "description": "agent-policy.yaml loaded and default_decision is deny",
+            "target": {
+              "target-id": "ac-6",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000003",
+            "title": "deny unlisted tool",
+            "description": "expected deny/tool-not-allowlisted, got deny/tool-not-allowlisted",
+            "target": {
+              "target-id": "ac-6",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000004",
+            "title": "deny unpermitted action",
+            "description": "expected deny/action-not-permitted, got deny/action-not-permitted",
+            "target": {
+              "target-id": "ac-6",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000005",
+            "title": "deny unpermitted destination",
+            "description": "expected deny/destination-not-permitted, got deny/destination-not-permitted",
+            "target": {
+              "target-id": "ac-4",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000006",
+            "title": "deny secret egress",
+            "description": "expected deny/secret-egress-blocked, got deny/secret-egress-blocked",
+            "target": {
+              "target-id": "ac-4",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000007",
+            "title": "allow workspace read",
+            "description": "expected allow/matched-allow-rule, got allow/matched-allow-rule",
+            "target": {
+              "target-id": "ac-6",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000008",
+            "title": "allow clean internal get",
+            "description": "expected allow/matched-allow-rule, got allow/matched-allow-rule",
+            "target": {
+              "target-id": "ac-4",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          },
+          {
+            "uuid": "70000000-0000-4000-8000-000000000009",
+            "title": "every decision has required audit fields",
+            "description": "audit records contain exactly the policy-required fields for every decision",
+            "target": {
+              "target-id": "au-12",
+              "type": "objective-id",
+              "status": {
+                "state": "pass",
+                "reason": "satisfied"
+              }
+            },
+            "props": [
+              {
+                "name": "evidence-kind",
+                "ns": "https://example.local/ns/agent-controls",
+                "value": "pipeline-check"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "uuid": "80000000-0000-4000-8000-000000000001",
+            "title": "deny unlisted tool",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"execute\", \"decision\": \"deny\", \"destination\": \"\", \"principal\": \"synthetic-user\", \"reason\": \"tool-not-allowlisted\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:01Z\", \"tool\": \"shell.exec\"}, \"control-id\": \"ac-6\", \"decision\": {\"decision\": \"deny\", \"reason\": \"tool-not-allowlisted\"}, \"tool-call\": {\"action\": \"execute\", \"destination\": \"\", \"payload\": \"\", \"principal\": \"synthetic-user\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:01Z\", \"tool\": \"shell.exec\"}}"
+              }
+            ]
+          },
+          {
+            "uuid": "80000000-0000-4000-8000-000000000002",
+            "title": "deny unpermitted action",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"write\", \"decision\": \"deny\", \"destination\": \"\", \"principal\": \"synthetic-user\", \"reason\": \"action-not-permitted\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:02Z\", \"tool\": \"fs.read\"}, \"control-id\": \"ac-6\", \"decision\": {\"decision\": \"deny\", \"reason\": \"action-not-permitted\"}, \"tool-call\": {\"action\": \"write\", \"destination\": \"\", \"payload\": \"\", \"principal\": \"synthetic-user\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:02Z\", \"tool\": \"fs.read\"}}"
+              }
+            ]
+          },
+          {
+            "uuid": "80000000-0000-4000-8000-000000000003",
+            "title": "deny unpermitted destination",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"get\", \"decision\": \"deny\", \"destination\": \"evil.example.com\", \"principal\": \"synthetic-user\", \"reason\": \"destination-not-permitted\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:03Z\", \"tool\": \"http.get\"}, \"control-id\": \"ac-4\", \"decision\": {\"decision\": \"deny\", \"reason\": \"destination-not-permitted\"}, \"tool-call\": {\"action\": \"get\", \"destination\": \"evil.example.com\", \"payload\": \"\", \"principal\": \"synthetic-user\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:03Z\", \"tool\": \"http.get\"}}"
+              }
+            ]
+          },
+          {
+            "uuid": "80000000-0000-4000-8000-000000000004",
+            "title": "deny secret egress",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"get\", \"decision\": \"deny\", \"destination\": \"api.internal.example.local\", \"principal\": \"synthetic-user\", \"reason\": \"secret-egress-blocked\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:04Z\", \"tool\": \"http.get\"}, \"control-id\": \"ac-4\", \"decision\": {\"decision\": \"deny\", \"reason\": \"secret-egress-blocked\"}, \"tool-call\": {\"action\": \"get\", \"destination\": \"api.internal.example.local\", \"payload\": \"synthetic credential AKIA0000000000000000\", \"principal\": \"synthetic-user\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:04Z\", \"tool\": \"http.get\"}}"
+              }
+            ]
+          },
+          {
+            "uuid": "80000000-0000-4000-8000-000000000005",
+            "title": "allow workspace read",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"read\", \"decision\": \"allow\", \"destination\": \"\", \"principal\": \"synthetic-user\", \"reason\": \"matched-allow-rule\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:05Z\", \"tool\": \"fs.read\"}, \"control-id\": \"ac-6\", \"decision\": {\"decision\": \"allow\", \"reason\": \"matched-allow-rule\"}, \"tool-call\": {\"action\": \"read\", \"destination\": \"\", \"payload\": \"\", \"principal\": \"synthetic-user\", \"resource\": \"workspace/notes.txt\", \"timestamp\": \"2026-07-30T00:00:05Z\", \"tool\": \"fs.read\"}}"
+              }
+            ]
+          },
+          {
+            "uuid": "80000000-0000-4000-8000-000000000006",
+            "title": "allow clean internal get",
+            "description": "Synthetic tool-call evidence produced by the reference monitor.",
+            "methods": [
+              "TEST"
+            ],
+            "subjects": [
+              {
+                "subject-uuid": "22222222-2222-4222-8222-222222222222",
+                "type": "component",
+                "title": "example-agent-runtime"
+              }
+            ],
+            "relevant-evidence": [
+              {
+                "description": "{\"audit-record\": {\"action\": \"get\", \"decision\": \"allow\", \"destination\": \"api.internal.example.local\", \"principal\": \"synthetic-user\", \"reason\": \"matched-allow-rule\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:06Z\", \"tool\": \"http.get\"}, \"control-id\": \"ac-4\", \"decision\": {\"decision\": \"allow\", \"reason\": \"matched-allow-rule\"}, \"tool-call\": {\"action\": \"get\", \"destination\": \"api.internal.example.local\", \"payload\": \"synthetic clean payload\", \"principal\": \"synthetic-user\", \"resource\": \"\", \"timestamp\": \"2026-07-30T00:00:06Z\", \"tool\": \"http.get\"}}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

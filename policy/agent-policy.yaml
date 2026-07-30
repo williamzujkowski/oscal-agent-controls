@@ -1,0 +1,18 @@
+default_decision: deny
+allowed_tools:
+  - name: fs.read
+    actions: [read]
+    resources: ["workspace/**"]
+  - name: http.get
+    actions: [get]
+    destinations: ["api.internal.example.local"]
+egress:
+  # any tool call whose payload contains a secret may only go to these destinations
+  allowed_destinations: []
+  secret_patterns:
+    - name: fake-access-key
+      regex: "AKIA[0-9A-Z]{16}"        # synthetic access-key-shaped pattern, NOT real
+    - name: fake-bearer
+      regex: "sk-live-[A-Za-z0-9]{16}" # synthetic, NOT real
+audit:
+  required_fields: [timestamp, principal, tool, action, resource, destination, decision, reason]
