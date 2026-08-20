@@ -7,3 +7,4 @@ venv/
 verify/Gate-py/
 verify/bin/
 *.dtr
+verify/Authority-py/

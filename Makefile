@@ -15,5 +15,7 @@ verify:
 
 verify-formal:
 	$(DAFNY) verify verify/Gate.dfy
+	$(DAFNY) verify verify/Gate.dfy verify/Authority.dfy
 	$(OPA) test verify/
 	python verify/difftest/run.py
+	python verify/difftest/authority.py

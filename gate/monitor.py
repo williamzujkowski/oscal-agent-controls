@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fnmatch import fnmatchcase
+import hashlib
+import json
 import re
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, Sequence
 
 import yaml
 
@@ -86,6 +88,95 @@ def load_policy(path: str | Path) -> Policy:
     with Path(path).open("r", encoding="utf-8") as handle:
         raw = yaml.safe_load(handle)
     return _parse_policy(raw)
+
+
+MODE_RANK = {"observe": 0, "suggest": 1, "enforce": 2}
+
+
+@dataclass(frozen=True)
+class Authority:
+    """What the agent may do *right now*.
+
+    Bound to a policy DIGEST, not a policy identifier. A grant that names a
+    policy by id can be honoured against a body that has since been edited;
+    a grant that carries the digest cannot.
+    """
+
+    mode: str
+    policy_digest: str
+
+
+@dataclass(frozen=True)
+class ModeRule:
+    tool: str
+    required: str
+
+
+def _policy_to_canonical(policy: Policy) -> dict[str, Any]:
+    return {
+        "default_decision": policy.default_decision,
+        "allowed_tools": [
+            {
+                "name": r.name,
+                "actions": list(r.actions),
+                "resources": list(r.resources),
+                "destinations": list(r.destinations),
+            }
+            for r in policy.allowed_tools
+        ],
+        "egress": {
+            "allowed_destinations": list(policy.egress.allowed_destinations),
+            "secret_patterns": [{"name": s.name, "regex": s.regex} for s in policy.egress.secret_patterns],
+        },
+        "audit": {"required_fields": list(policy.audit.required_fields)},
+    }
+
+
+def policy_digest(policy: Policy) -> str:
+    """Content address of the policy body actually in force."""
+    canonical = json.dumps(_policy_to_canonical(policy), sort_keys=True, separators=(",", ":"))
+    return "sha256:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def demote(authority: Authority, to: str) -> Authority:
+    """Reduce authority without destroying it.
+
+    Revocation is the only lever the current agent-authorization drafts model.
+    This is the middle: an agent that failed review is often still useful at a
+    lower mode, and there is no window during which the old mode still answers.
+    """
+    if MODE_RANK[to] > MODE_RANK[authority.mode]:
+        raise ValueError(f"demote() cannot raise authority: {authority.mode} -> {to}")
+    return Authority(mode=to, policy_digest=authority.policy_digest)
+
+
+def required_mode(tool: str, mode_rules: Sequence[ModeRule]) -> str:
+    """An unlisted tool requires the highest mode, never the lowest."""
+    for rule in mode_rules:
+        if rule.tool == tool:
+            return rule.required
+    return "enforce"
+
+
+def decide_bound(
+    authority: Authority,
+    request: ToolCall,
+    policy: Policy,
+    presented_digest: str,
+    mode_rules: Sequence[ModeRule],
+) -> Decision:
+    """Decide against authority as it stands now, not as it was issued.
+
+    Order is deliberate and mirrors Authority.dfy: a grant issued against a
+    different policy body authorizes nothing, whatever it says about modes.
+    """
+    if presented_digest != authority.policy_digest:
+        return Decision("deny", "policy-body-mismatch")
+
+    if MODE_RANK[required_mode(request.tool, mode_rules)] > MODE_RANK[authority.mode]:
+        return Decision("deny", "above-current-authority")
+
+    return decide(request, policy)
 
 
 def decide(request: ToolCall, policy: Policy) -> Decision:
